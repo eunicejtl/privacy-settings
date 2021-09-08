@@ -1,0 +1,250 @@
+#container { 
+    display: grid;
+    grid-template-columns: 0.6fr 1fr 1fr;
+    grid-template-rows: 0.2fr auto;
+    grid-template-areas: 
+        "header header header"
+        "sidebar main main";
+    grid-gap: 0.2rem;
+}
+
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 0.6fr 1fr 1fr;
+    grid-template-rows: 0.2fr 1fr;
+    grid-template-areas: 
+        "header header header"
+        "main main main";
+    grid-gap: 0.2rem;
+}
+
+#header {
+    background-color: #3d4248;
+    color: #eff2f6;
+    grid-area: header;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 0.2rem;
+    grid-template-areas: "logo heading navigation";
+}
+
+/* POPUP */
+#popup {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+#popup-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 70%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+  /* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+from {top:-300px; opacity:0}
+to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #3D4249;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.popup-header {
+    background-color: #3D4249;
+    padding: 2px 16px;
+    color: white;
+}
+
+.popup-body { padding: 2px 16px; }
+
+#preview {
+    margin: auto;
+    padding: auto;
+    width: 100%;
+}
+  
+
+/* HEADER ELEMENTS */
+#logoCont {
+    grid-area: logo;
+    margin: auto;
+}
+
+#heading {
+    width: 100%;
+    margin: auto;
+    grid-area: heading;
+}
+
+#navigation {
+    grid-area: navigation;
+    margin: auto;
+    width: 100%;
+}
+
+button {
+    background-color: #cfddd5;
+    border-radius: 10px;
+    border: 1px solid #000;
+    cursor: pointer;
+    font-size: 100%;
+    padding: 2% 6%;
+    text-decoration: none;
+}
+
+button:hover {
+    background-color: #9abeab;
+}
+button:active {
+    position: relative;
+    top: 1px;
+}
+/* END HEADER */
+
+/* SIDEBAR */
+#sidebar {
+    grid-area: sidebar;
+    border-right: 3px solid black;
+}
+
+.sidebarButton {
+    display: block;
+    border-radius: 5px;
+    width: 70%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+}
+
+.sidebarButton button {
+    text-align: center;
+}
+/* END SIDEBAR */
+
+/* MAIN SECTION */
+main {
+    grid-area: main;
+    height: 100vh;
+}
+
+#dashboardImg {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+input, label {
+    margin: 1%;
+}
+
+h5 {
+    margin-top: 2%;
+}
+
+input[type='checkbox'] { 
+    margin-top: 1%; 
+}
+
+/* TEXT ELEMENTS */
+/*.forms label {
+    min-width: 200px;
+}*/
+
+input, select {
+    width: 300px;
+    margin: 1%;
+    display: inline-block;
+}
+
+.checkbox {
+    width: auto;
+    margin: 1%;
+}
+
+h6 {
+    margin-top: 2%;
+    margin-bottom: 0.5%;
+    color: #9abeab;
+    font-style: italic;
+}
+/* END TEXT ELEMENTS */
+
+.saveButton {
+    display: inline-block;
+    padding: 5px 20px;
+    margin: 2%;
+}
+
+#accountDiv {
+    display: block;
+    position: absolute;
+    padding: 1%;
+    margin: 0.5%;
+}
+
+#manageDiv {
+    position: absolute;
+    padding: 1%;
+    margin: 1%;
+}
+
+
+/* icons */
+.material-icons {
+    cursor: default;
+    font-size: 60px;
+}
+
+.iconDiv {
+    margin: 1% 0;
+    text-align: center;
+    display: inline-flex;
+}
+
+#user-list {
+    margin: 1%;
+    display: inline-flex;
+}
+
+.iconText {
+    display: block;
+}
+
+
+
+/* END MAIN SECTION */

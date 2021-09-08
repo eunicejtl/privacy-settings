@@ -1,0 +1,201 @@
+<DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title>Hakituri Privacy Settings</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body>
+        <div id="container" class="container-fluid">
+            <!--HEADER-->
+            <section id="header" class="col">
+                <!--LOGO-->
+                <div id="logoCont" class="headerContent">
+                    <img class="logo" src="img/logo.png" alt="Tini o te Hakituri Logo">      
+                </div>
+                
+                <!--HEADING-->
+                <div id="heading" class="headerContent">
+                    <h1>Manage Settings</h2>
+                </div>
+
+                <!--NAVIGATION-->
+                <div id="navigation" class="headerContent">
+                    <a href="dashboard.html"><button>Dashboard</button></a>
+                    <a href="settings.html"><button >Manage Settings</button></a>
+                    <button>Logout</button>
+                </div>
+            </section>
+
+            <!-- SIDEBAR-->
+            <section id="sidebar" class="col">
+                <button id="account" class="sidebarButton">Account</button>
+                <button id="manage" class="sidebarButton">Manage Privacy</button>
+            </section>
+
+            <!--MAIN-->
+            <main id="main" class="col">
+                <!--Settings-->
+                <div id="settings">
+                    <div id="popup">
+                        <div id="popup-content">
+                            <div class="popup-header">
+                                <span class="close">&times;</span>
+                                <h2>Preview</h2>
+                            </div>
+                            <div class="popup-body"><img id="preview"></div>
+                            <button id="confirm" class="saveButton">Confirm</button>
+                        </div>
+                    </div>
+                    <div id="accountDiv" class="forms"> <!-- MODIFY -->
+                        <h3>Account</h3>
+                        <label for="username">Username</label>
+                        <input type="text" name="username" value="forestry.kahurangi">
+                        <br>
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="workerPassword" class="passwords" value="abcd1234">
+                        <br>
+
+                        <h3>Personal Details</h3>
+                        <label for="fname">First Name</label>
+                        <input type="text" name="First Name" value="Kahurangi">
+                        <br>
+                        <label for="lname">Last Name</label>
+                        <input type="text" name="Last Name" value="Henare">
+                        <br>
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" name="dob" value="2000-04-01">
+
+                        <button class="saveButton">Save</button>
+                    </div>
+
+                    <div id="manageDiv">
+                        <h3>Who can see my dashboard?</h3>
+                        <div class="iconDiv">
+                            <div id="user-list"></div>
+                            <div><i class="material-icons" id="addUserForm">add_circle_outline</i><label for="addUserForm" class="iconText">Add </label></div>
+                        </div>
+
+                        <!-- INNER ACCOUNT - display info -->
+                        <div id="innerDiv" class="forms">
+                            <h3>Account</h3>
+                            <label for="username">Username</label>
+                            <input type="text" name="username" id="usernameInfo" value="worker.user" readonly>
+                            <br>
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="passwordInfo" class="passwords" value="12345678" readonly>
+
+                            <br>
+
+                            <h3>Personal Details</h3>
+                            <label for="fname">First Name</label>
+                            <input type="text" name="First Name" id="fnameInfo">
+                            <br>
+                            <label for="lname">Last Name</label>
+                            <input type="text" name="Last Name" id="lnameInfo">
+                            <br>
+                            <label for="accessInfo">Allow this user to access</label>
+                            <select name="access" id="accessInfo">
+                                <option value="full-access">Everything on my dashboard</option>
+                                <option value="some-access">Some information on my dashboard</option>
+                                <option value="private">No information from my dashboard</option>
+                            </select>
+                            <label class="subtitle">Select how much data this user will see.</label>
+
+                            <!-- INNER DIV -->
+                            <div id="controlsDiv" class="forms">
+                                <div id="context"> 
+                                    <h5>Context</h5>
+                                    <h6>Work context such as weather and temperature will automatically be shown. Select which of the following information to display.</h6>
+                                    <input class="checkbox" type="checkbox" value="location" id="locationInfo"> Site Location
+                                    <input class="checkbox" type="checkbox" value="role" id="roleInfo"> Work role
+                                </div>
+
+                                <div id="health">
+                                    <h5>Health Data</h5>
+                                    <h6>Please select which of the following health information to display.</h6>
+                                    <input class="checkbox" type="checkbox" value="heartrate" id="heartrateInfo"> Heart Rate
+                                    <input class="checkbox" type="checkbox" value="stress" id="stressInfo"> Stress Levels
+                                    <input class="checkbox" type="checkbox" value="dehydration" id="dehydrationInfo"> Dehydration
+                                    
+                                    <label for="healthYesInfo">Notify this user about my health status (this user will not be notified about unselected options.)</label>
+                                    <input class="checkbox" type="checkbox" value="yes" id="healthYesInfo" checked="true"> 
+                                    <br>
+                                    <h6>Low risk levels will automatically be shown. Please select other fatigue risks to display.</h6>
+                                    <input class="checkbox" type="checkbox" value="low" id="lowRiskInfo" checked="true" onclick="return false;" /> Low Risk
+                                    <input class="checkbox" type="checkbox" value="mid" id="medRiskInfo"> Medium Risk
+                                    <input class="checkbox" type="checkbox" value="high" id="highRiskInfo"> High Risk
+                                    <input class="checkbox" type="checkbox" value="extreme" id="extremeRiskInfo"> Extreme Risk </label>
+                                    <br>
+                                    <label for="fatigueYesInfo">Notify this user about my fatigue risks (this user will not be notified about unselected options.)</label>
+                                    <input class="checkbox" type="checkbox" value="yes" id="fatigueYesInfo" checked="true"> 
+                                    <br>
+
+                                    <h6>If you do not wish to be identified, you can choose to group your information with other workers.</h6>
+                                    <label for="grouping">Share </label>
+                                    <select name="grouping" id="groupingInfo">
+                                        <option>only my information</option>
+                                        <option>with other workers' information</option>
+                                    </select>
+                                    <br>
+                                </div>
+
+                                <div id=timeInfo>
+                                    <h5>Choose time periods</h5>
+                                    <h6>Monthly information will automatically be shown. Please select other time periods to show.</h6>
+                                    <input class="checkbox" type="checkbox" value="hourly" id="hourlyInfo"> Hourly 
+                                    <input class="checkbox" type="checkbox" value="daily" id="dailyInfo"> Daily
+                                    <input class="checkbox" type="checkbox" value="weekly" id="weeklyInfo"> Weekly
+                                    <input class="checkbox" type="checkbox" value="monthly" id="monthlyInfo" checked="true" onclick="return false;"> Monthly
+                                </div>
+                            </div>
+                            <button class="saveButton" id="save">Save</button>
+                            <button class="saveButton" id="delete">Delete User</button>
+                        </div>
+
+
+                        <!-- ADD ACCOUNT CONTAINER -->
+                        <div id="addAccountContainer" class="forms">
+                            <h4 id="thisThing">Add New Account</h4>
+                            <label for="username">Username</label>
+                            <input type="text" name="username" id="username" value="worker.user" readonly>
+                            <br>
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" class="passwords" value="1234" readonly>
+                            <hr>
+
+                            <label for="fname">First Name</label>
+                            <input type="text" name="First Name" id="fname">
+                            <br>
+                            <label for="lname">Last Name</label>
+                            <input type="text" name="Last Name" id="lname"> 
+                            <br>
+                            <h6>Select how much data this user will see.</h6>
+                            <label for="accesLevel">Allow this user to access </label>
+                            <select name="access" id="access">
+                                <option value="full-access">Everything on my dashboard</option>
+                                <option value="some-access">Some information on my dashboard</option>
+                                <option value="private">No information from my dashboard</option>
+                            </select>
+                            
+                            <div id="extended"> </div>
+
+                            <button class="saveButton" id="addUser">Add Account</button>
+                        </div>
+                    </div>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+                </div>
+            </main>
+        </div>
+    </body>
+
+    <script src="js/User.js"></script>
+    <script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+</html>
