@@ -26,11 +26,36 @@ class Users {
 // UI class
 class UI {
     static displayUsers() {
+        console.log("displayUsers func");
+        const storedUsers = [
+            {
+                fname: 'Jordan',
+                lname: 'Henare',
+                access: 'some-access',
+                location: false,
+                role: true,
+                heartrate: true, 
+                stress: true, 
+                dehydration: true,
+                healthYes: true,
+                midRisk: true,
+                highRisk: false, 
+                extremeRisk: false,
+                riskYes: true,
+                grouping: 'large-group',
+                hourly: true,
+                daily: true,
+                weekly: true,
+                monthly: true
+            }
+        ]
+
         const users = Store.getUsers();
         users.forEach((user) => UI.addUserToList(user));
     }
 
     static addUserToList(user) {
+        console.log(user);
         // get the container of the user list
         const list = document.querySelector('#user-list');
         const icons = document.createElement('div');
@@ -54,7 +79,7 @@ class UI {
         div.className = `alert alert-${className}`;
         div.appendChild(document.createTextNode(message));
         const container = document.querySelector('#addAccountContainer');
-        const form = document.querySelector('#thisThing');
+        const form = document.querySelector('#thisThing'); 
         container.insertBefore(div, form);
 
         // remove not in 3 seconds
@@ -64,6 +89,7 @@ class UI {
     static clear() {
         document.querySelector('#fname').value = '';
         document.querySelector('#lname').value = '';
+        document.querySelector('#access').value = 'full-access';
     }
 }
 
@@ -105,47 +131,51 @@ class Store {
 // event to display
 document.addEventListener('DOMContentLoaded', UI.displayUsers);
 
-// event to add user
-document.querySelector('#addUser').addEventListener('click', (e) => {
-    e.preventDefault();
-    var user;
+var user;
 
-    // Validate
+// if add account button is clicked
+document.querySelector('#addUser').addEventListener('click', (e) => {
+    //e.preventDefault();
+    const fname = document.querySelector('#fname').value;
+    const lname = document.querySelector('#lname').value;
+    const access = document.querySelector('#access').value;
+
+    if(access == 'some-access') {
+        const location = document.querySelector('#location').checked;
+        const role = document.querySelector('#role').checked;
+        const heartrate = document.querySelector('#heartrate').checked;
+        const stress = document.querySelector('#stress').checked;
+        const dehydration = document.querySelector('#dehydration').checked;
+        const healthYes = document.querySelector('#healthYes').checked;
+        const midrisk = document.querySelector('#medrisk').checked;
+        const highrisk = document.querySelector('#highrisk').checked;
+        const extremerisk = document.querySelector('#extremerisk').checked;
+        const riskYes = document.querySelector('#riskYes').checked;
+        const grouping = document.querySelector('#grouping').value;
+        const hourly = document.querySelector('#hourly').checked;
+        const daily = document.querySelector('#daily').checked;
+        const weekly = document.querySelector('#weekly').checked;
+        const monthly = document.querySelector('#monthly').checked;
+
+        // instantiate user
+        user = new Users(fname, lname, access, location, role, heartrate, stress, dehydration, healthYes, midrisk, highrisk, extremerisk, riskYes, grouping, hourly, daily, weekly, monthly);
+    }
+    else if(access == 'full-access') {
+
+        // instantiate public user
+        user = new Users(fname, lname, access, true, true, true, true, true, true, true, true, true, true, "small-group", true, true, true, true);
+    }
+    else {
+        // instantiate private user
+        user = new Users(fname, lname, access, false, false, false, false, false, false, false, false, false, false, "large-group", false, false, false, false);
+    }
+
+    // validate input
     if(document.querySelector('#fname').value === '' || document.querySelector('#lname').value == ''){
         UI.showNotification('All fields are required!', 'danger');
-    }else{
-        //const username = document.querySelector('#username').value;
-        //const password = document.querySelector('#password').value;
-        const fname = document.querySelector('#fname').value;
-        const lname = document.querySelector('#lname').value;
-        const access = document.querySelector('#access').value;
-
-        if(access == 'some-access') {
-            const location = document.querySelector('#location').checked;
-            const role = document.querySelector('#role').checked;
-            const heartrate = document.querySelector('#heartrate').checked;
-            const stress = document.querySelector('#stress').checked;
-            const dehydration = document.querySelector('#dehydration').checked;
-            const healthYes = document.querySelector('#healthYes').checked;
-            const midrisk = document.querySelector('#medrisk').checked;
-            const highrisk = document.querySelector('#highrisk').checked;
-            const extremerisk = document.querySelector('#extremerisk').checked;
-            const riskYes = document.querySelector('#riskYes').checked;
-            const grouping = document.querySelector('#grouping').value;
-            const hourly = document.querySelector('#hourly').checked;
-            const daily = document.querySelector('#daily').checked;
-            const weekly = document.querySelector('#weekly').checked;
-            const monthly = document.querySelector('#monthly').checked;
-
-            // instantiate user
-            user = new Users(fname, lname, access, location, role, heartrate, stress, dehydration, healthYes, midrisk, highrisk, extremerisk, riskYes, grouping, hourly, daily, weekly, monthly);
-        }
-        else {
-            // instantiate user
-            user = new Users(fname, lname, access, false, false, false, false, false, false, false, false, false, false, "small-group", false, false, false, false);
-        }
-
-        // preview
+    }
+    else {
+        // set up preview
         var span = document.querySelector('.close');
         var popup = document.querySelector('#popup');
         popup.style.display = 'block';
@@ -155,22 +185,22 @@ document.querySelector('#addUser').addEventListener('click', (e) => {
             popup.style.display = 'none';
         });
 
+        // if anything outside of image is clicked, close preview
         window.onclick = function(e) {
             if(e.target == popup) {
                 popup.style.display = 'none';
             }
         }
 
+        // display preview
         if(access == 'full-access') {
             document.querySelector('#preview').src = "img/full-access.png";
         }
         else if(access == 'some-access') {
-            console.log(user);
-
-            if(user.location === false && user.heartrate === false && user.dehydration === false && user.stress === false && user.hourly === false && user.healthYes === false && user.riskYes === false && user.grouping === 'large-group') {
+            if(location === false && heartrate === false && dehydration === false && stress === false && hourly === false && healthYes === false && riskYes === false && grouping === 'large-group') {
                 document.querySelector('#preview').src = "img/some-access1.png";
             }
-            else if(user.stress === false && user.grouping === 'small-group' && user.extremeRisk === false) {
+            else if(stress === false && grouping === 'small-group' && extremeRisk === false) {
                 document.querySelector('#preview').src = "img/some-access2.png";
             }
         }
@@ -178,18 +208,22 @@ document.querySelector('#addUser').addEventListener('click', (e) => {
             document.querySelector('#preview').src = "img/private.png";
         }
     }
-
-    document.querySelector('#confirm').addEventListener('click', (e) => {
-        popup.style.display = 'none';
-
-        // add user icon
-        UI.addUserToList(user);
-
-        // Store in browser storage
-        Store.addUser(user);
-
-        // clear fields
-        UI.clear();
-    });
 });
 
+// adding user to list of users and display it
+document.querySelector('#confirm').addEventListener('click', (e) => {
+    e.preventDefault();
+    popup.style.display = 'none';
+
+    // add user icon
+    UI.addUserToList(user);
+
+    // Store in browser storage
+    Store.addUser(user);
+
+    // notification of success
+    UI.showNotification('User Added successfully', 'success');
+
+    // clear fields
+    UI.clear();
+});

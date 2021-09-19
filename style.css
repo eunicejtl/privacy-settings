@@ -6,6 +6,7 @@
         "header header header"
         "sidebar main main";
     grid-gap: 0.2rem;
+    height: 100%;
 }
 
 
@@ -160,7 +161,6 @@ button:active {
 /* MAIN SECTION */
 main {
     grid-area: main;
-    height: 100vh;
 }
 
 #dashboardImg {
