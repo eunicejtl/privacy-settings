@@ -26,7 +26,6 @@ class Users {
 // UI class
 class UI {
     static displayUsers() {
-        console.log("displayUsers func");
         const storedUsers = [
             {
                 fname: 'Jordan',
@@ -50,12 +49,12 @@ class UI {
             }
         ]
 
-        const users = Store.getUsers();
+        //const users = Store.getUsers();
+        const users = storedUsers;
         users.forEach((user) => UI.addUserToList(user));
     }
 
     static addUserToList(user) {
-        console.log(user);
         // get the container of the user list
         const list = document.querySelector('#user-list');
         const icons = document.createElement('div');
