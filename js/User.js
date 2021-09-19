@@ -190,7 +190,6 @@ document.querySelector('#addUser').addEventListener('click', (e) => {
 
         // clear fields
         UI.clear();
-        hideControls();
     });
 });
 

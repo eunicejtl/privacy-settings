@@ -11,57 +11,70 @@ window.onload = function() {
 
     // listener - if manage button is clicked
     document.querySelector('#manage').addEventListener('click', (e) => {
+        console.log("Manage Privacy");
         hideAcctDiv();
         hideAddUser();
         showManageDiv();
         showInnerDiv();
 
-        // go through local storage, pull out first account to display
+        // check if there are users in the storage
         let users; 
-        if(localStorage.length === 0) { users = []; }
+        if(localStorage.length === 0) { 
+            console.log("storage length == 0");
+            users = []; 
+            hideInnerDiv();
+            showAddUser();
+        }
         else {
             users = JSON.parse(localStorage.getItem('users'));
+            // if there are no users in the storage
             if(users.length == 0) {
+                console.log("Nothing in the storage");
                 hideInnerDiv();
                 showAddUser();
-    
-                // if some access was chosen
-                document.querySelector('#access').addEventListener('change', (e) => {
-                    var select = document.querySelector('#access');
-                    var showThis = new Controls();
-                    if(select.options[select.selectedIndex].value == 'some-access') {
-                        // show extended container
-                        showThis.createUI();
-                        document.querySelector('#main').style.height = "100vw";
-                    }
-                    else {
-                        showThis.removeUI();
-                        document.querySelector('#main').style.height = "100vh";
-                    }
-                })
             }
             else {
                 if(users[0].access == 'some-access') {
+                    console.log(users[0].fname)
+                    inputForm(users[0]);
                     showControls();
                     if(users[0].access === "some-access") {
-                        document.querySelector('#main').style.height = "80vw";
+                        document.querySelector('#main').style.height = "100vw";
                     }
                     else {
                         document.querySelector('#main').style.height = "100vh";
                     }
-                    inputForm(users[0]);
                 }
                 else {
+                    console.log("should not show controls")
                     inputForm(users[0]);
+                    hideControls();
                 }
             }
         }
+
+        // if some access was chosen - extend form
+        document.querySelector('#access').addEventListener('change', (e) => {
+            console.log("Some access chosen");
+            var select = document.querySelector('#access');
+            var showThis = new Controls();
+            if(select.options[select.selectedIndex].value == 'some-access') {
+                // show extended container
+                showThis.createUI();
+                document.querySelector('#main').style.height = "100vw";
+            }
+            else {
+                showThis.removeUI();
+                document.querySelector('#main').style.height = "100vh";
+            }
+        })
 
         // add user button
         document.querySelector('#addUserForm').addEventListener('click', (e) => {
             // display add user form
             hideInnerDiv();
             showAddUser();
+            hideControls();
 
             // if some access was chosen
             document.querySelector('#access').addEventListener('change', (e) => {
@@ -69,8 +82,9 @@ window.onload = function() {
                 var showThis = new Controls();
                 if(select.options[select.selectedIndex].value == 'some-access') {
                     // show extended container
+                    console.log("height should extend");
+                    document.querySelector('#main').style.height = "100vw";
                     showThis.createUI();
-                    document.querySelector('#main').style.height = "80vw";
                 }
                 else {
                     showThis.removeUI();
@@ -90,13 +104,15 @@ window.onload = function() {
             // find the coressponding user
             users.forEach((user) => {
                 if(user.fname === e.target.id) {   
+                    inputForm(user);
                     if(user.access === "some-access") {
+                        showControls();
                         document.querySelector('#main').style.height = "100vw";
                     }
                     else {
+                        hideControls();
                         document.querySelector('#main').style.height = "100vh";
                     }
-                    inputForm(user);
                 }
             })
 
@@ -133,20 +149,21 @@ function showManageDiv() { document.querySelector('#manageDiv').style.display = 
 
 function hideManageDiv() { document.querySelector('#manageDiv').style.display = "none"; }
 
-// toggle inner div
-function showInnerDiv() { document.querySelector('#innerDiv').style.display = "block"; }
+    // toggle inner div
+    function showInnerDiv() { document.querySelector('#innerDiv').style.display = "block"; }
 
-function hideInnerDiv() { document.querySelector('#innerDiv').style.display = "none"; }
+    function hideInnerDiv() { document.querySelector('#innerDiv').style.display = "none"; }
 
-// toggle add user div
-function showAddUser() { document.querySelector('#addAccountContainer').style.display = "block"; }
+    // toggle add user div
+    function showAddUser() { document.querySelector('#addAccountContainer').style.display = "block"; }
 
-function hideAddUser() { document.querySelector('#addAccountContainer').style.display = "none"; }
+    function hideAddUser() { document.querySelector('#addAccountContainer').style.display = "none"; }
 
-// toggle controls div
-function showControls() { document.querySelector('#controlsDiv').style.display = "block"; }
+    // toggle controls div - existing users
+    function showControls() { document.querySelector('#controlsDiv').style.display = "block"; }
 
-function hideControls() { document.querySelector('#controlsDiv').style.display = "none"; }
+    function hideControls() { document.querySelector('#controlsDiv').style.display = "none"; }
+ 
 
 function inputForm(user) {
 
@@ -168,7 +185,7 @@ function inputForm(user) {
         document.querySelector('#heartrateInfo').checked = user.heartrate;
         document.querySelector('#stressInfo').checked = user.stress;
         document.querySelector('#dehydrationInfo').checked = user.dehydration;
-        document.querySelector('#healthYesInfo').checked = user.healhYes;
+        document.querySelector('#healthYesInfo').checked = user.healthYes;
         document.querySelector('#medRiskInfo').checked = user.midRisk;
         document.querySelector('#highRiskInfo').checked = user.highRisk;
         document.querySelector('#extremeRiskInfo').checked = user.extremeRisk;
@@ -184,7 +201,6 @@ function inputForm(user) {
         document.querySelector('#weeklyInfo').checked = user.weekly;
         document.querySelector('#monthlyInfo').checked = user.monthly;
     }
-    
 }
 
 function Controls(container) {
@@ -501,9 +517,5 @@ function Controls(container) {
         while(container.hasChildNodes()) {
             container.removeChild(container.lastChild);
         }
-    }
-
-    this.display = function() {
-
     }
 }
